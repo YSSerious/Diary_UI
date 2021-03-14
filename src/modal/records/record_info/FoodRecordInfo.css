@@ -1,0 +1,15 @@
+span.foodInfoHeaderSeparator {
+    padding: 0 5px;
+}
+
+.nutritionAlign {
+    text-align: center;
+}
+
+.foodRecordSubHeader{
+    text-align: left;
+}
+
+.paddingFirstTd {
+    padding-left: 15px;
+}

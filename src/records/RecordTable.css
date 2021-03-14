@@ -1,0 +1,26 @@
+.monthTable {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    border-collapse: collapse;
+}
+
+table.monthTable td, th.recordTh{
+    border: solid 2px black;
+    text-align: center;
+    cursor: pointer;
+}
+
+table.monthTable td.recordTd:hover, th.recordTh:hover{
+    border-width: medium;
+    border-color: black;
+}
+
+table.monthTable td.tdSundayBorder{
+    border-right-color: #6e6060;
+    border-right-width: thick;
+}
+
+.currentDay {
+    background-color: #dce0e4;
+}

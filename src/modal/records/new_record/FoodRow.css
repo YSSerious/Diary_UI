@@ -1,0 +1,10 @@
+.foodRow {
+    display: flex;
+    min-height: 30px;
+    align-items: center;
+}
+
+.modalContentScroll {
+    overflow-y: auto;
+    height: 40vh;
+}

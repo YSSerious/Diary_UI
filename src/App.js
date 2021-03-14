@@ -1,25 +1,43 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {useEffect} from "react";
+import RecordsContent from "./records/RecordsContent";
+import Header from "./header/Header";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    let [year, setYear] = React.useState(new Date().getFullYear());
+    let [timeLines, setTimeLines] = React.useState([]);
+    let [months, setMonths] = React.useState([]);
+
+    useEffect(() => {
+        getRecords();
+    }, [year]);
+
+    useEffect(() => {
+        getTimeLInes();
+    }, []);
+
+    return (
+        <div>
+            <Header setYear={setYear} year={year}/>
+            <RecordsContent months={months} timeLines={timeLines} year={year}/>
+        </div>
+    );
+
+    function getRecords() {
+        fetch('http://localhost:8080/food/getRecords?year=' + year)
+            .then(response => response.json())
+            .then(data => {
+                setMonths(data);
+            });
+    }
+
+    function getTimeLInes() {
+        fetch('http://localhost:8080/food/getTimeLInes')
+            .then(response => response.json())
+            .then(data => {
+                setTimeLines(data)
+            });
+    }
 }
 
 export default App;

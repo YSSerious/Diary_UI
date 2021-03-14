@@ -1,0 +1,10 @@
+.foodName {
+    font-weight: bold;
+    margin-right: 5px;
+    margin-left: 2px;
+}
+
+.activeFoodPart {
+    margin-left: auto;
+    margin-right: 2px;
+}
