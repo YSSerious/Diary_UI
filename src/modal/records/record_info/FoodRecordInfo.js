@@ -1,13 +1,14 @@
 import React, {useEffect} from "react";
 import './FoodRecordInfo.css'
-import Icon, {getFoodHealthyColorClass, getFoodRecordInfosTotalString} from "../../../util/MyUtil";
+import Icon, {getFoodRecordInfosTotalString} from "../../../util/MyUtil";
+import RecordService from "../../../services/RecordService";
 
 export default function FoodRecordInfo(props) {
     let [foodDayTimeLineInfo, setFoodDayTimeLineInfo] = React.useState([]);
     const dateOptions = {hour: 'numeric', minute: 'numeric', hour12: false};
 
     useEffect(() => {
-        getFoodCatalog();
+        RecordService.getFoodDayTimeLineInfo(props.records, setFoodDayTimeLineInfo);
     }, []);
 
     return (
@@ -33,7 +34,7 @@ export default function FoodRecordInfo(props) {
                         <tbody>
                         {value.foodRecordInfos.map((recordValue, i) =>
                             <tr key={i}>
-                                <td className="paddingFirstTd"><Icon type="foodHealthy" foodHealthyColor={getFoodHealthyColorClass(recordValue.foodHealthy)} foodHealthyTitle={recordValue.foodHealthy}/></td>
+                                <td className="paddingFirstTd"><Icon type="foodHealthy" foodHealthy={recordValue.foodHealthy}/></td>
                                 <td>{recordValue.foodName}</td>
                                 <td>{getFoodRecordInfosTotalString(recordValue)}</td>
                             </tr>
@@ -44,17 +45,6 @@ export default function FoodRecordInfo(props) {
             }
         </div>
     );
-
-    // function getFoodHealthyColorClass(foodHealthy) {
-    //     const map = {
-    //         'GOOD': 'goodFH',
-    //         'NORMAL': 'normalFH',
-    //         'NOT_GOOD': 'ngoodFH',
-    //         'BAD': 'badFH',
-    //         'DRINK': 'drinkFH'
-    //     };
-    //     return map[foodHealthy];
-    // }
 
     function getFoodDayTimeLineTotalValues() {
         return getFoodRecordInfosTotalString(
@@ -81,19 +71,5 @@ export default function FoodRecordInfo(props) {
             }
             return a;
         });
-    }
-
-    function getFoodCatalog() {
-        fetch('http://localhost:8080/food/getFoodDayTimeLineInfo', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(props.record.map(r => r.id))
-        }).then(response => response.json())
-            .then(data => {
-                setFoodDayTimeLineInfo(data);
-            });
     }
 }

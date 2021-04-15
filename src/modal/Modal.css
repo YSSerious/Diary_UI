@@ -14,7 +14,6 @@
     transform: translate(-50%, -50%);
     background-color: #FFF;
     min-height: 200px;
-    width: 500px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

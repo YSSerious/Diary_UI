@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import {getFoodRecordInfosTotalString} from "../../../util/MyUtil";
 import './DayInfoModal.css'
+import RecordService from "../../../services/RecordService";
 
 export default function DayInfoModal(props) {
     let [dayInfo, setDayInfo] = React.useState(
@@ -18,10 +19,10 @@ export default function DayInfoModal(props) {
 
             }
         }
-        );
+    );
 
     useEffect(() => {
-        getRecords();
+        RecordService.getDayInfoData(props.year, props.month, props.day, setDayInfo);
     }, []);
 
     return (
@@ -31,17 +32,11 @@ export default function DayInfoModal(props) {
                 <h3 className="subHeader">Total: {getFoodRecordInfosTotalString(dayInfo.food)}</h3>
             </div>
             <div>
+            </div>
+            <div>
                 <h2 className="headerMargin"><span className="waterInfoHeader">Water</span></h2>
                 <h3 className="subHeader">Total: {dayInfo.water.volume + ' ml'}</h3>
             </div>
         </div>
     );
-
-    function getRecords() {
-        fetch('http://localhost:8080/food/getDayInfo?year=' + props.year + '&month=' + props.month + '&day=' + props.day)
-            .then(response => response.json())
-            .then(data => {
-                setDayInfo(data);
-            });
-    }
 }

@@ -17,10 +17,10 @@ table.monthTable td.recordTd:hover, th.recordTh:hover{
 }
 
 table.monthTable td.tdSundayBorder{
-    border-right-color: #6e6060;
+    border-right-color: #353535;
     border-right-width: thick;
 }
 
-.currentDay {
+.currentRecord {
     background-color: #dce0e4;
 }

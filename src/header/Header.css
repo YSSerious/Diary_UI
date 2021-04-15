@@ -1,0 +1,58 @@
+.headerNav {
+    background-color: #353535;
+}
+
+.headerUl {
+    margin: 0;
+    padding: 0 40px 0 40px;
+}
+
+.headerLi {
+    padding: 10px 0 10px 0;
+    display: inline-block;
+}
+
+.headerLi > a {
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: x-large;
+}
+
+.rightLi {
+    float: right;
+}
+
+.add-records-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.add-records-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    width: max-content;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.add-records-dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    border: 1px solid black;
+}
+
+.add-records-dropdown-content a:hover {background-color: #f1f1f1}
+
+.add-records-dropdown:hover .add-records-dropdown-content {
+    display: block;
+}
+
+.headerLi:hover > a {
+    background-color: #515451;
+}

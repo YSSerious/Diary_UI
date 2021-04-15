@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import BodyResponseSelect from "./BodyResponseSelect";
+import RecordService from "../../../services/RecordService";
 
 export default function NewBodyResponseRecordModal(props) {
 
@@ -15,46 +16,21 @@ export default function NewBodyResponseRecordModal(props) {
 
     useEffect(() => {
         setRecord(recordObject);
-        getBodyResponseValues();
+        RecordService.getBodyResponseValues(setBodyResponseValues);
     }, []);
 
     return (
         <div>
-            <BodyResponseSelect title={"General state"} value={recordObject.generalState} onChange={generalStateOnChange} recordObject={recordObject} bodyResponseValues={bodyResponseValues}/>
-            <BodyResponseSelect title={"Nose"} value={recordObject.nose} onChange={noseOnChange} recordObject={recordObject} bodyResponseValues={bodyResponseValues}/>
-            <BodyResponseSelect title={"Eyes"} value={recordObject.eyes} onChange={eyesOnChange} recordObject={recordObject} bodyResponseValues={bodyResponseValues}/>
-            <BodyResponseSelect title={"Chin"} value={recordObject.chin} onChange={chinOnChange} recordObject={recordObject} bodyResponseValues={bodyResponseValues}/>
-            <BodyResponseSelect title={"Forehead"} value={recordObject.forehead} onChange={foreheadOnChange} recordObject={recordObject} bodyResponseValues={bodyResponseValues}/>
+            <BodyResponseSelect title={"General state"} value={recordObject.generalState} onChange={(event) => {stateOnChange(event, 'generalState')}} recordObject={recordObject} bodyResponseValues={bodyResponseValues}/>
+            <BodyResponseSelect title={"Nose"} value={recordObject.nose} onChange={(event) => {stateOnChange(event, 'nose')}} recordObject={recordObject} bodyResponseValues={bodyResponseValues}/>
+            <BodyResponseSelect title={"Eyes"} value={recordObject.eyes} onChange={(event) => {stateOnChange(event, 'eyes')}} recordObject={recordObject} bodyResponseValues={bodyResponseValues}/>
+            <BodyResponseSelect title={"Chin"} value={recordObject.chin} onChange={(event) => {stateOnChange(event, 'chin')}} recordObject={recordObject} bodyResponseValues={bodyResponseValues}/>
+            <BodyResponseSelect title={"Forehead"} value={recordObject.forehead} onChange={(event) => {stateOnChange(event, 'forehead')}} recordObject={recordObject} bodyResponseValues={bodyResponseValues}/>
         </div>
     );
 
-    function generalStateOnChange(event){
-        // const bodyResponseValue = event.target.getAttribute('name');
-        const obj = {...recordObject, generalState: event.target.value};
-        setRecordObject(obj);
-        setRecord(obj);
-    }
-
-    function noseOnChange(event){
-        const obj = {...recordObject, nose:event.target.value};
-        setRecordObject(obj);
-        setRecord(obj);
-    }
-
-    function eyesOnChange(event){
-        const obj = {...recordObject, eyes:event.target.value};
-        setRecordObject(obj);
-        setRecord(obj);
-    }
-
-    function chinOnChange(event){
-        const obj = {...recordObject, chin:event.target.value};
-        setRecordObject(obj);
-        setRecord(obj);
-    }
-
-    function foreheadOnChange(event){
-        const obj = {...recordObject, forehead:event.target.value};
+    function stateOnChange(event, property){
+        const obj = {...recordObject, [property] : event.target.value};
         setRecordObject(obj);
         setRecord(obj);
     }
@@ -64,13 +40,5 @@ export default function NewBodyResponseRecordModal(props) {
             url: "createBodyResponseRecord",
             record: recordObj
         })
-    }
-
-    function getBodyResponseValues() {
-        fetch('http://localhost:8080/food/getBodyResponseValues')
-            .then(response => response.json())
-            .then(data => {
-                setBodyResponseValues(data);
-            });
     }
 }

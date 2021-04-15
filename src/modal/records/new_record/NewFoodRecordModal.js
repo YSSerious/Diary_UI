@@ -1,13 +1,14 @@
 import React, {useEffect} from "react";
 import "./FoodRow.css"
 import FoodCategory from "../../../collapse/FoodCategory";
+import RecordService from "../../../services/RecordService";
 
 export default function NewFoodRecordModal(props) {
     let [foodCatalog, setFoodCatalog] = React.useState([]);
     let [recordObject, setRecordObject] = React.useState({foodVolumes: [], zoneDateTime: new Date().toISOString()});
 
     useEffect(() => {
-        getFoodCatalog();
+        RecordService.getFoodCatalog(setFoodCatalog);
         setRecord(recordObject);
     }, []);
 
@@ -27,10 +28,8 @@ export default function NewFoodRecordModal(props) {
         </div>
     );
 
-    function addFoodVolume(event){
-        const id = event.target.id;
-        const volume = document.getElementById(id+'-input').value;
-        const obj = {...recordObject, foodVolumes: [...recordObject.foodVolumes, {food: {id: id}, volume: volume}]};
+    function addFoodVolume(foodId, volume){
+        const obj = {...recordObject, foodVolumes: [...recordObject.foodVolumes, {food: {id: foodId}, volume: volume}]};
         setRecordObject(obj);
         setRecord(obj);
     }
@@ -40,13 +39,5 @@ export default function NewFoodRecordModal(props) {
             url: "createFoodRecord",
             record: recordObj
         })
-    }
-
-    function getFoodCatalog() {
-        fetch('http://localhost:8080/food/getFoodCatalog')
-            .then(response => response.json())
-            .then(data => {
-                setFoodCatalog(data);
-            });
     }
 }

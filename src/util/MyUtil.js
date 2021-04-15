@@ -8,7 +8,7 @@ export default function Icon(props){
         gym: <i className="bi-trophy fa-lg gymIconColor" title="Gym Record"/>,
         weight: <i className="bi-star-fill fa-lg weightIconColor" title="Weight Record"/>,
         bodyResponse: <i className="bi-person-fill fa-lg brIconColor" title="Body Response Record"/>,
-        foodHealthy: <i className={`bi-diamond-fill ${props.foodHealthyColor}`} title={props.foodHealthyTitle}/>
+        foodHealthy: <i className={`bi-diamond-fill`} style={{color: getFoodHealthyColorClass(props.foodHealthy)}} title={props.foodHealthy}/>
     };
     return(
         icons[props.type]
@@ -24,15 +24,21 @@ export function getFoodRecordInfosTotalString(record) {
 
 export function getFoodHealthyColorClass(foodHealthy) {
     const map = {
-        'GOOD': 'goodFH',
-        'NORMAL': 'normalFH',
-        'NOT_GOOD': 'ngoodFH',
-        'BAD': 'badFH',
-        'DRINK': 'drinkFH'
+        'GOOD': '#83d70a',
+        'NORMAL': '#33d0bf',
+        'NOT_GOOD': '#a40be5',
+        'BAD': 'darkred',
+        'DRINK': 'dodgerblue'
     };
     return map[foodHealthy];
 }
 
 export function isCurrentDay(day) {
-    return new Date().getUTCDate() === day ? 'currentDay' : '';
+    return new Date().getDate() === day ? 'currentRecord' : '';
+}
+
+export function isCurrentTimeLine(timeLine) {
+    const currentHours = new Date().getHours();
+    const timeLineHours = parseInt(timeLine.substring(0,2));
+    return ((currentHours === timeLineHours) || (currentHours === timeLineHours+1)) ? 'currentRecord' : '';
 }

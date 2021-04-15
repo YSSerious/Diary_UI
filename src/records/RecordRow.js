@@ -1,16 +1,30 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Record from "./Record";
+import {isCurrentTimeLine} from "../util/MyUtil";
 
 export default function RecordRow(props){
+
+    const [isCurrentTL, setCurrentTimeLine] = React.useState('');
+
+    useEffect(() => {
+        setCurrentTimeLine(isCurrentTimeLine(props.timeLine));
+    }, []);
+
     return (
         <tr>
-            <td>{props.timeLine}</td>
+            <td className={`${isCurrentTL}`}>{props.timeLine}</td>
             {
                 props.month.generalInfos.map((value, i) =>
-                <Record key={i} isSunday={value.weekDay === "SUNDAY"} value={getDayRecords(value.monthDay, getTimeLineValues(props))} monthDay={value.monthDay}/>)
+                <Record key={i}
+                        isSunday={value.weekDay === "SUNDAY"}
+                        value={getDayRecords(value.monthDay, getTimeLineValues(props))}
+                        monthDay={value.monthDay}
+                        isCurrentTimeLine={isCurrentTL}/>)
             }
         </tr>
     )
+
+
 }
 
 function getDayRecords(dayNumber, timeLineValues){

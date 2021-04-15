@@ -9,10 +9,9 @@ export default function Record(props) {
     let [isModalOpen, setModalIsOpen] = React.useState(false);
     let [modalChild, setModalChild] = React.useState();
     let [modalTitle, setModalTitle] = React.useState();
-    let [recordDto, setRecordDto] = React.useState({url: '', record: {}});
 
     return (
-        <td className={`recordTd ${props.isSunday ? ' tdSundayBorder' : ''} ${isCurrentDay(props.monthDay)}`}>
+        <td className={`recordTd ${props.isSunday ? ' tdSundayBorder' : ''} ${isCurrentDay(props.monthDay)} ${props.isCurrentTimeLine}`}>
             {props.value.FoodRecord ? <span onClick={openFoodInfo}>{getRecordLength(props.value.FoodRecord)}<Icon type="food"/></span> : ''}
             {props.value.WaterRecord ? <span>{getRecordLength(props.value.WaterRecord)}<Icon type="water"/></span> : ''}
             {props.value.GymRecord ? <span>{getRecordLength(props.value.GymRecord)}<Icon type="gym"/></span> : ''}
@@ -29,7 +28,7 @@ export default function Record(props) {
     }
 
     function openFoodInfo() {
-        openCloseModal('Food info. (kCal | proteins/carbs/fats)', <FoodRecordInfo record={props.value.FoodRecord} setRecordDto={setRecordDto}/>);
+        openCloseModal('Food info. (kCal | proteins/carbs/fats)', <FoodRecordInfo records={props.value.FoodRecord}/>);
     }
 
     function openCloseModal(modalTitle, modalChild) {
@@ -37,17 +36,4 @@ export default function Record(props) {
         setModalChild(modalChild);
         setModalIsOpen(!isModalOpen);
     }
-}
-
-function parseRecords(records) {
-    if(Object.keys(records).length) {
-        // console.log(records);
-        // console.log("FoodRecord: ", records.FoodRecord);
-        // console.log("WaterRecord: ", records.WaterRecord);
-        // console.log("BodyResponseRecord: ", records.BodyResponseRecord);
-        // console.log("GymRecord: ", records.GymRecord);
-        // console.log("WeightRecord: ", records.WeightRecord);
-        return Object.keys(records).length
-    }
-    return "";
 }

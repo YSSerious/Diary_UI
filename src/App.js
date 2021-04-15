@@ -1,43 +1,31 @@
 import './App.css';
-import React, {useEffect} from "react";
-import RecordsContent from "./records/RecordsContent";
+import React from "react";
+import {Route} from "react-router";
+import HomePage from "./pages/HomePage";
+import RecordsPage from "./pages/RecordsPage";
+import LoginPage from "./pages/auth/LoginPage";
+import RegisterPage from "./pages/auth/RegisterPage";
+import {authHeaderName} from "./services/ServiceConstants";
 import Header from "./header/Header";
 
 function App() {
+
     let [year, setYear] = React.useState(new Date().getFullYear());
-    let [timeLines, setTimeLines] = React.useState([]);
-    let [months, setMonths] = React.useState([]);
-
-    useEffect(() => {
-        getRecords();
-    }, [year]);
-
-    useEffect(() => {
-        getTimeLInes();
-    }, []);
+    let [reloadRecordsFlag, setReloadRecordsFlag] = React.useState([true]);
+    let [authenticatedUser, setAuthenticatedUser] = React.useState(JSON.parse(localStorage.getItem(authHeaderName)));
 
     return (
         <div>
-            <Header setYear={setYear} year={year}/>
-            <RecordsContent months={months} timeLines={timeLines} year={year}/>
+            <Header authenticatedUser={authenticatedUser} setAuthenticatedUser={setAuthenticatedUser}
+                year={year} setYear={setYear} reloadRecordsFlag={reloadRecordsFlag} setReloadRecordsFlag={setReloadRecordsFlag}/>
+            <div className="contentBody">
+                <Route exact path="/" component={HomePage}/>
+                <Route exact path="/records" component={() => (<RecordsPage year={year} reloadRecordsFlag={reloadRecordsFlag} />)}/>
+                <Route exact path="/login"
+                       component={(props) => (<LoginPage defaultProps={props} setAuthenticatedUser={setAuthenticatedUser}/>)}/>
+                <Route exact path="/register" component={RegisterPage}/>
+            </div>
         </div>
     );
-
-    function getRecords() {
-        fetch('http://localhost:8080/food/getRecords?year=' + year)
-            .then(response => response.json())
-            .then(data => {
-                setMonths(data);
-            });
-    }
-
-    function getTimeLInes() {
-        fetch('http://localhost:8080/food/getTimeLInes')
-            .then(response => response.json())
-            .then(data => {
-                setTimeLines(data)
-            });
-    }
 }
-
 export default App;
