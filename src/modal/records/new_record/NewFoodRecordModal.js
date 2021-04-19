@@ -5,7 +5,7 @@ import RecordService from "../../../services/RecordService";
 
 export default function NewFoodRecordModal(props) {
     let [foodCatalog, setFoodCatalog] = React.useState([]);
-    let [recordObject, setRecordObject] = React.useState({foodVolumes: [], zoneDateTime: new Date().toISOString()});
+    let [recordObject, setRecordObject] = React.useState({foodVolumes: []});
 
     useEffect(() => {
         RecordService.getFoodCatalog(setFoodCatalog);

@@ -1,20 +1,47 @@
-import serverUrl from "./ServiceConstants";
+import serverUrl, {authHeaderName} from "./ServiceConstants";
 import authHeader from "./AuthHeader";
+import {getCurrentMonthName} from "../util/MyUtil";
 
 const defaultHeaders = {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
 }
 
+const user = JSON.parse(localStorage.getItem(authHeaderName));
+
 const RecordService = {
 
     getYearRecords: function (year, setMonths) {
-        fetch(serverUrl + 'food/getRecords?year=' + year, {
+        if(user) {
+            fetch(serverUrl + 'food/getYearRecords?year=' + year + '&userId=' + user.id,{
+                headers: authHeader()
+            })
+                .then(response => {
+                    if(response.status === 401) {
+
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    setMonths(data);
+                });
+        }
+    },
+
+    getMonthRecords: function (year, month, months, setMonths) {
+        fetch(serverUrl + 'food/getMonthRecords?year=' + year + '&month=' + month + '&userId=' + user.id, {
             headers: authHeader()
         })
             .then(response => response.json())
             .then(data => {
-                setMonths(data);
+                setMonths(
+                    months.map(month => {
+                        if (month.diaryMonth.name === data.name) {
+                            return {diaryMonth: data, modalOpen: true}
+                        }
+                        return month;
+                    })
+                )
             });
     },
 
@@ -28,16 +55,18 @@ const RecordService = {
             });
     },
 
-    createRecord: function (recordDto, userId, openCloseModal, setReloadRecordsFlag, reloadRecordsFlag) {
+    createRecord: function (recordDto, userId, openCloseModal, year, months, setMonths) {
         recordDto.record.user = {id: userId};
+        recordDto.record.zoneDateTime = recordDto.record.zoneDateTime ? recordDto.record.zoneDateTime : new Date().toISOString();
         fetch(serverUrl + 'food/' + recordDto.url, {
             method: 'POST',
             headers: {...defaultHeaders, ...authHeader()},
             body: JSON.stringify(recordDto.record)
-        }).then(response => {
-            openCloseModal();
-            setReloadRecordsFlag(!reloadRecordsFlag);
-        }).catch(error => {
+        }).then(response => response.json())
+            .then(response => {
+                openCloseModal();
+                this.getMonthRecords(year, getCurrentMonthName(recordDto.record.zoneDateTime), months, setMonths);
+            }).catch(error => {
             console.log("ERROR: ", error);
         });
     },

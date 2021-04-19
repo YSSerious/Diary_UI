@@ -1,16 +1,17 @@
 import React from "react";
 import './MyUtils.css'
 
-export default function Icon(props){
+export default function Icon(props) {
     const icons = {
         food: <i className="bi-egg-fried fa-lg foodIconColor" title="Food Record"/>,
         water: <i className="bi-droplet-half fa-lg waterIconColor" title="Water Record"/>,
         gym: <i className="bi-trophy fa-lg gymIconColor" title="Gym Record"/>,
         weight: <i className="bi-star-fill fa-lg weightIconColor" title="Weight Record"/>,
         bodyResponse: <i className="bi-person-fill fa-lg brIconColor" title="Body Response Record"/>,
-        foodHealthy: <i className={`bi-diamond-fill`} style={{color: getFoodHealthyColorClass(props.foodHealthy)}} title={props.foodHealthy}/>
+        foodHealthy: <i className={`bi-diamond-fill`} style={{color: getFoodHealthyColorClass(props.foodHealthy)}}
+                        title={props.foodHealthy}/>
     };
-    return(
+    return (
         icons[props.type]
     );
 }
@@ -39,6 +40,10 @@ export function isCurrentDay(day) {
 
 export function isCurrentTimeLine(timeLine) {
     const currentHours = new Date().getHours();
-    const timeLineHours = parseInt(timeLine.substring(0,2));
-    return ((currentHours === timeLineHours) || (currentHours === timeLineHours+1)) ? 'currentRecord' : '';
+    const timeLineHours = parseInt(timeLine.substring(0, 2));
+    return ((currentHours === timeLineHours) || (currentHours === timeLineHours + 1)) ? 'currentRecord' : '';
+}
+
+export function getCurrentMonthName(date) {
+    return (new Date(date) || new Date()).toLocaleString('default', {month: 'long'});
 }

@@ -1,5 +1,6 @@
 import AuthService from "../../services/AuthService";
 import React from "react";
+import './LoginPage.css'
 
 export default function LoginPage(props) {
 
@@ -12,31 +13,17 @@ export default function LoginPage(props) {
     }
 
     return (
-        <div className="wrapper">
-            <div className="container">
+        <div className="login-wrapper">
+            <div className="login-container">
                 <h1>Sign in</h1>
-
                 <form className="form" onSubmit={handleLogin}>
-                    <input type="text" placeholder="Username" value={username}
+                    <input className="signinInput" type="text" placeholder="Username" value={username}
                            onInput={e => setUsername(e.target.value)}/>
-                    <input type="password" placeholder="Password" value={password}
+                    <input className="signinInput" type="password" placeholder="Password" value={password}
                            onInput={e => setPassword(e.target.value)}/>
                     <button type="submit" id="login-button">Login</button>
                 </form>
             </div>
-
-            <ul className="bg-bubbles">
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
         </div>
     );
 }

@@ -6,6 +6,7 @@ import DayInfoModal from "../modal/records/day_info/DayInfoModal";
 import Collapsible from "react-collapsible";
 import {isCurrentDay} from "../util/MyUtil";
 import ChartsModal from "../modal/records/ChartsModal";
+import RecordService from "../services/RecordService";
 
 export default function RecordTable(props) {
     let [isDayInfoModalOpen, setIsDayInfoModalOpen] = React.useState(false);
@@ -15,28 +16,28 @@ export default function RecordTable(props) {
     let [day, setDay] = React.useState();
 
     return (
-        <Collapsible trigger={props.month.name} open={isMonthOpen(props.month.name)}>
+        <Collapsible trigger={props.month.diaryMonth.name} open={props.month.modalOpen} onTriggerOpening={() => {loadMonthRecords(props.year, props.month.diaryMonth.name, props.month.modalOpen)}}>
             <table className="monthTable">
                 <thead>
                 <tr>
                     <th className="recordTh" onClick={() => openCloseChartsModal()}/>
-                    {props.month.generalInfos.map((value, i) =>
+                    {props.month.diaryMonth.generalInfos.map((value, i) =>
                         <th key={i} className={`recordTh ${isCurrentDay(value.monthDay)}`} onClick={
-                            () => openCloseDayInfoModal(props.month.name + ' | ' + value.weekDay + ' / ' + value.monthDay, value.monthDay)}>
+                            () => openCloseDayInfoModal(props.month.diaryMonth.name + ' | ' + value.weekDay + ' / ' + value.monthDay, value.monthDay)}>
                             {value.monthDay}
                             <br/>{value.weekDay}
                         </th>)}
                 </tr>
                 </thead>
                 <tbody>
-                {props.timeLines.map((value, i) => <RecordRow key={i} timeLine={value} month={props.month}/>)}
+                {props.timeLines.map((value, i) => <RecordRow key={i} timeLine={value} month={props.month.diaryMonth}/>)}
                 </tbody>
             </table>
             <Modal title={dayInfoModalTitle} isOpen={isDayInfoModalOpen} onClose={openCloseDayInfoModal}>
-                <DayInfoModal year={props.year} month={props.month.name} day={day}/>
+                <DayInfoModal year={props.year} month={props.month.diaryMonth.name} day={day}/>
             </Modal>
-            <Modal title={props.month.name +" " + props.year} isOpen={isChartsModalOpen} onClose={openCloseChartsModal} weight="1000px">
-                <ChartsModal year={props.year} month={props.month.name}/>
+            <Modal title={props.month.diaryMonth.name +" " + props.year} isOpen={isChartsModalOpen} onClose={openCloseChartsModal} weight="90%" height="90%" bodyHeight="80%">
+                <ChartsModal year={props.year} month={props.month.diaryMonth.name}/>
             </Modal>
         </Collapsible>
     )
@@ -51,11 +52,17 @@ export default function RecordTable(props) {
         setDay(day)
     }
 
-    function isMonthOpen(month) {
-        return getCurrentMonthName().toLowerCase() === month.toLowerCase()
+    function loadMonthRecords(year, month, dataAlreadyLoaded) {
+        if(!dataAlreadyLoaded) {
+            RecordService.getMonthRecords(year, month, props.months, props.setMonths);
+        }
     }
 
-    function getCurrentMonthName(){
-        return new Date().toLocaleString('default', { month: 'long' });
-    }
+    // function isMonthOpen(month) {
+    //     return getCurrentMonthName().toLowerCase() === month.toLowerCase()
+    // }
+    //
+    // function getCurrentMonthName(){
+    //     return new Date().toLocaleString('default', { month: 'long' });
+    // }
 }

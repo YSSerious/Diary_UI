@@ -26,8 +26,13 @@ export default function Modal(props) {
         }
     }
 
-    let weight = {
-        width: props.weight ? props.weight : '500px'
+    let modalWindowStyle = {
+        width: props.weight ? props.weight : '500px',
+        height: props.height ? props.height : 'auto'
+    }
+
+    let modalBodyStyle = {
+        height: props.bodyHeight ? props.bodyHeight : '80%'
     }
 
     return (
@@ -36,12 +41,12 @@ export default function Modal(props) {
                 props.isOpen &&
                 <ModalPortal>
                     <div className="modalOverlay">
-                        <div className="modalWindow" onKeyDown={handleKeyDown} tabIndex="0" style={weight} id="modalWindowId">
+                        <div className="modalWindow" onKeyDown={handleKeyDown} tabIndex="0" style={modalWindowStyle} id="modalWindowId">
                             <div className="modalHeader">
                                 <div className="modalTitle">{props.title}</div>
                                 <a onClick={props.onClose} href="#"><i className="bi-x fa-2x"/></a>
                             </div>
-                            <div className="modalBody">
+                            <div className="modalBody" style={modalBodyStyle}>
                                 {props.children}
                             </div>
                             <div className="modalFooter">

@@ -1,5 +1,6 @@
 export const authHeaderName = 'user';
 
+// const serverIp = 'localhost';
 const serverIp = '192.168.1.101';
 const serverPort = '8080';
 // local url

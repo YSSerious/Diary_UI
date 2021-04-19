@@ -10,7 +10,7 @@ export default function NewBodyResponseRecordModal(props) {
         eyes: 'GOOD',
         chin: 'GOOD',
         forehead: 'GOOD',
-        zoneDateTime: new Date().toISOString()
+        note: ''
     });
     let [bodyResponseValues, setBodyResponseValues] = React.useState([]);
 
@@ -21,11 +21,19 @@ export default function NewBodyResponseRecordModal(props) {
 
     return (
         <div>
-            <BodyResponseSelect title={"General state"} value={recordObject.generalState} onChange={(event) => {stateOnChange(event, 'generalState')}} recordObject={recordObject} bodyResponseValues={bodyResponseValues}/>
-            <BodyResponseSelect title={"Nose"} value={recordObject.nose} onChange={(event) => {stateOnChange(event, 'nose')}} recordObject={recordObject} bodyResponseValues={bodyResponseValues}/>
-            <BodyResponseSelect title={"Eyes"} value={recordObject.eyes} onChange={(event) => {stateOnChange(event, 'eyes')}} recordObject={recordObject} bodyResponseValues={bodyResponseValues}/>
-            <BodyResponseSelect title={"Chin"} value={recordObject.chin} onChange={(event) => {stateOnChange(event, 'chin')}} recordObject={recordObject} bodyResponseValues={bodyResponseValues}/>
-            <BodyResponseSelect title={"Forehead"} value={recordObject.forehead} onChange={(event) => {stateOnChange(event, 'forehead')}} recordObject={recordObject} bodyResponseValues={bodyResponseValues}/>
+            <div style={{display: "flex"}}>
+                <BodyResponseSelect title={"General state"} value={recordObject.generalState} onChange={(event) => {stateOnChange(event, 'generalState')}} recordObject={recordObject} bodyResponseValues={bodyResponseValues}/>
+                <BodyResponseSelect title={"Nose"} value={recordObject.nose} onChange={(event) => {stateOnChange(event, 'nose')}} recordObject={recordObject} bodyResponseValues={bodyResponseValues}/>
+                <BodyResponseSelect title={"Eyes"} value={recordObject.eyes} onChange={(event) => {stateOnChange(event, 'eyes')}} recordObject={recordObject} bodyResponseValues={bodyResponseValues}/>
+                <BodyResponseSelect title={"Chin"} value={recordObject.chin} onChange={(event) => {stateOnChange(event, 'chin')}} recordObject={recordObject} bodyResponseValues={bodyResponseValues}/>
+            </div>
+            <div style={{display: "flex"}}>
+                <BodyResponseSelect title={"Forehead"} value={recordObject.forehead} onChange={(event) => {stateOnChange(event, 'forehead')}} recordObject={recordObject} bodyResponseValues={bodyResponseValues}/>
+            </div>
+            <div>
+                <p>Note</p>
+                <textarea style={{width: '-webkit-fill-available'}} value={recordObject.note} onChange={(event) => {stateOnChange(event, 'note')}}/>
+            </div>
         </div>
     );
 

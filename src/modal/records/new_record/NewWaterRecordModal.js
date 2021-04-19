@@ -13,8 +13,7 @@ export default function NewWaterRecordModal(props) {
         props.setRecordDto({
             url: "createWaterRecord",
             record: {
-                volume: event.target.value,
-                zoneDateTime: new Date().toISOString()
+                volume: event.target.value
             }
         })
     }

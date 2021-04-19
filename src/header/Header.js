@@ -9,9 +9,9 @@ export default function Header(props) {
         <nav className="headerNav">
             <ul className="headerUl">
                 <HeaderLink visible={true} lable={'Home'} path={'/'}/>
-                <HeaderLink visible={props.authenticatedUser} lable={'Records'} path={'/records'} isDropdown={true} children={
-                    <AddRecordsDropdownContent year={props.year} setYear={props.setYear} reloadRecordsFlag={props.reloadRecordsFlag}
-                                               setReloadRecordsFlag={props.setReloadRecordsFlag}/>
+                <HeaderLink visible={props.authenticatedUser} lable={'Records'} path={'/records'} isDropdown={true}/>
+                <HeaderLink visible={props.authenticatedUser} lable={'Add Records'} path={'/records'} isDropdown={true} children={
+                    <AddRecordsDropdownContent year={props.year} setYear={props.setYear} months={props.months} setMonths={props.setMonths}/>
                 }/>
                 <HeaderLink visible={!props.authenticatedUser} lable={'Sign up'} path={'/register'} floatRight={true}/>
                 <HeaderLink visible={!props.authenticatedUser} lable={'Sign in'} path={'/login'} floatRight={true}/>

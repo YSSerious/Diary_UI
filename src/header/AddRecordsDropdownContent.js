@@ -8,6 +8,7 @@ import NewWeightRecordModal from "../modal/records/new_record/NewWeightRecordMod
 import Icon from "../util/MyUtil";
 import RecordService from "../services/RecordService";
 import Modal from "../modal/Modal";
+import {TextField} from "@material-ui/core";
 
 export default function AddRecordsDropdownContent(props) {
 
@@ -34,11 +35,27 @@ export default function AddRecordsDropdownContent(props) {
                 <a onClick={createBodyResponseRecord}><Icon type="bodyResponse"/> Add BodyResponse Record</a>
             </div>
             <Modal title={modalTitle} isOpen={isModalOpen} onClose={openCloseModal}
-                   onSubmit={() => RecordService.createRecord(recordDto, user.id, openCloseModal, props.setReloadRecordsFlag, props.reloadRecordsFlag)}>
+                   onSubmit={() => RecordService.createRecord(recordDto, user.id, openCloseModal, props.year, props.months, props.setMonths)}>
                 {modalChild}
+                <br/>
+                <form noValidate>
+                    <TextField
+                        id="date"
+                        label="Record date"
+                        type="datetime-local"
+                        onChange={onDateChange}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                    />
+                </form>
             </Modal>
         </>
     );
+
+    function onDateChange(event) {
+        setRecordDto({...recordDto, record: {...recordDto.record, zoneDateTime: new Date(event.target.value).toISOString()}});
+    }
 
     function openCloseModal(modalTitle, modalChild) {
         setModalTitle(modalTitle);
@@ -66,7 +83,7 @@ export default function AddRecordsDropdownContent(props) {
         openCloseModal('Add new Weight Record', <NewWeightRecordModal setRecordDto={setRecordDto}/>);
     }
 
-    function selectYear(event){
+    function selectYear(event) {
         props.setYear(event.target.value);
     }
 }

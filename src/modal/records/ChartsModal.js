@@ -27,8 +27,8 @@ export default function ChartsModal(props) {
     )
 
     const chartStyle = {
-        width: '960px',
-        height: '200px',
+        width: '100%',
+        height: '45%',
         margin: '0 0 15px 0'
     }
 
@@ -37,7 +37,7 @@ export default function ChartsModal(props) {
     }, []);
 
     return (
-        <div>
+        <div style={{overflowY: 'auto', height: '100%'}}>
             <div style={chartStyle}>
                 <span>KCalories</span>
                 <Chart data={caloriesData} axes={axes} tooltip/>

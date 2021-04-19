@@ -11,8 +11,7 @@ export default function NewWeightRecordModal(props) {
         props.setRecordDto({
             url: "createWeightRecord",
             record: {
-                volume: event.target.value,
-                zoneDateTime: new Date().toISOString()
+                volume: event.target.value
             }
         })
     }

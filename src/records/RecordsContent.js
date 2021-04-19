@@ -8,7 +8,7 @@ export default function RecordsContent(props) {
                 props.months.length ?
                 props.months.map((month, i) =>
                     <div key={i}>
-                        <RecordTable year={props.year} month={month} timeLines={props.timeLines} index={i}/>
+                        <RecordTable year={props.year} month={month} months={props.months} setMonths={props.setMonths} timeLines={props.timeLines} index={i}/>
                     </div>) :
                     <h1>We Dont have any records =(</h1>
             }

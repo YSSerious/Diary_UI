@@ -16,6 +16,7 @@ export default function FoodRecordInfo(props) {
             <h2 className="subHeader nutritionAlign">Total: {foodDayTimeLineInfo.length > 0 ? getFoodDayTimeLineTotalValues() : ''}</h2>
             {
                 foodDayTimeLineInfo.map((value, i) =>
+
                     <table key={i}>
                         <thead>
                         <tr>

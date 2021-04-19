@@ -33,6 +33,6 @@ function getDayRecords(dayNumber, timeLineValues){
 }
 
 function getTimeLineValues(props){
-    const timeLineValuesArray = props.month.timeLines.filter(value => value.name === props.timeLine).map(value => value.monthDays);
+    const timeLineValuesArray = (props.month.timeLines || []).filter(value => value.name === props.timeLine).map(value => value.monthDays);
     return timeLineValuesArray.length ? timeLineValuesArray[0] : [];
 }
