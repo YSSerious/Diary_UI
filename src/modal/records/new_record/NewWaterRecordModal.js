@@ -5,7 +5,7 @@ export default function NewWaterRecordModal(props) {
     return (
         <div>
             <p>Water Record(Volume In Milliliters)</p>
-            <input type="number" onChange={setRecord}/>
+            <input type="number" onChange={setRecord} style={{font: 'icon'}}/>
         </div>
     );
 

@@ -9,7 +9,8 @@ export default function Icon(props) {
         weight: <i className="bi-star-fill fa-lg weightIconColor" title="Weight Record"/>,
         bodyResponse: <i className="bi-person-fill fa-lg brIconColor" title="Body Response Record"/>,
         foodHealthy: <i className={`bi-diamond-fill`} style={{color: getFoodHealthyColorClass(props.foodHealthy)}}
-                        title={props.foodHealthy}/>
+                        title={props.foodHealthy}/>,
+        pill: <i className="bi-eyedropper fa-lg pillIconColor" title="Pill Record"/>,
     };
     return (
         icons[props.type]

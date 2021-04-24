@@ -1,14 +1,14 @@
-.foodName {
+.recordName {
     font-weight: bold;
     margin-right: 5px;
     margin-left: 2px;
 }
 
-.activeFoodPart {
+.activeRecordPart {
     margin-left: auto;
     margin-right: 2px;
 }
 
-.foodInput {
+.recordInput {
     width: 60px;
 }

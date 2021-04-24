@@ -55,8 +55,8 @@ const RecordService = {
             });
     },
 
-    createRecord: function (recordDto, userId, openCloseModal, year, months, setMonths) {
-        recordDto.record.user = {id: userId};
+    createRecord: function (recordDto, openCloseModal, year, months, setMonths) {
+        recordDto.record.user = {id: user.id};
         recordDto.record.zoneDateTime = recordDto.record.zoneDateTime ? recordDto.record.zoneDateTime : new Date().toISOString();
         fetch(serverUrl + 'food/' + recordDto.url, {
             method: 'POST',
@@ -71,13 +71,23 @@ const RecordService = {
         });
     },
 
-    getFoodCatalog: function (setFoodCatalog) {
-        fetch(serverUrl + 'food/getFoodCatalog', {
+    getFoodCatalog: function () {
+        return fetch(serverUrl + 'food/getFoodCatalog', {
             headers: authHeader()
         })
             .then(response => response.json())
             .then(data => {
-                setFoodCatalog(data);
+                return data;
+            });
+    },
+
+    getPillCatalog: function () {
+        return fetch(serverUrl + 'food/getPillCatalog', {
+            headers: authHeader()
+        })
+            .then(response => response.json())
+            .then(data => {
+                return data;
             });
     },
 

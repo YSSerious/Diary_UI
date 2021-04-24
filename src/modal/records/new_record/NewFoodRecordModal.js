@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import "./FoodRow.css"
+import "./RecordRow.css"
 import FoodCategory from "../../../collapse/FoodCategory";
 import RecordService from "../../../services/RecordService";
 
@@ -8,13 +8,15 @@ export default function NewFoodRecordModal(props) {
     let [recordObject, setRecordObject] = React.useState({foodVolumes: []});
 
     useEffect(() => {
-        RecordService.getFoodCatalog(setFoodCatalog);
+        RecordService.getFoodCatalog().then(
+            data => setFoodCatalog(data)
+        );
         setRecord(recordObject);
     }, []);
 
     return (
         <div>
-            <p>FOOD</p>
+            <p>FOODS</p>
             <div className="modalContentScroll">
                 {
                     Object.keys(foodCatalog).map((value, i) =>

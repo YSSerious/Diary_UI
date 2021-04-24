@@ -17,6 +17,7 @@ export default function Record(props) {
             {props.value.GymRecord ? <span>{getRecordLength(props.value.GymRecord)}<Icon type="gym"/></span> : ''}
             {props.value.WeightRecord ? <span>{getRecordLength(props.value.WeightRecord)}<Icon type="weight"/></span> : ''}
             {props.value.BodyResponseRecord ? <span>{getRecordLength(props.value.BodyResponseRecord)}<Icon type="bodyResponse"/></span> : ''}
+            {props.value.PillRecord ? <span>{getRecordLength(props.value.PillRecord)}<Icon type="pill"/></span> : ''}
             <Modal title={modalTitle} isOpen={isModalOpen} onClose={openCloseModal}>
                 {modalChild}
             </Modal>
