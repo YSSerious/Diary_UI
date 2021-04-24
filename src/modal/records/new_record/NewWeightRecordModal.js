@@ -7,6 +7,7 @@ export default function NewWeightRecordModal(props) {
             <input type="number" onChange={setRecord} style={{font: 'icon'}}/>
         </div>
     );
+
     function setRecord(event){
         props.setRecordDto({
             url: "createWeightRecord",
