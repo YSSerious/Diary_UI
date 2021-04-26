@@ -1,26 +1,47 @@
-.monthTable {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-    border-collapse: collapse;
+.mainCollapseDiv {
+    position: relative;
 }
 
-table.monthTable td, th.recordTh{
+.secondMainCollapseDiv {
+    margin-left: 95px;
+}
+
+.monthTable {
+    display: block;
+    overflow-x: scroll;
+    white-space: nowrap;
+    border-collapse: collapse;
+    scroll-behavior: smooth;
+}
+
+table.monthTable td, th.recordTh {
     border: solid 2px black;
     text-align: center;
     cursor: pointer;
 }
 
-table.monthTable td.recordTd:hover, th.recordTh:hover{
+table.monthTable td.recordTd:hover, th.recordTh:hover {
     border-width: medium;
     border-color: black;
 }
 
-table.monthTable td.tdSundayBorder{
+table.monthTable td.tdSundayBorder {
     border-right-color: #353535;
     border-right-width: thick;
 }
 
 .currentRecord {
     background-color: #dce0e4;
+}
+
+.firstTrElement {
+    position: absolute;
+    left: 0;
+}
+
+.firstThElement {
+    top: 0px;
+    cursor: pointer;
+    height: 43px;
+    width: 91px;
 }

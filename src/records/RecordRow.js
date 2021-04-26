@@ -12,7 +12,7 @@ export default function RecordRow(props){
 
     return (
         <tr>
-            <td className={`${isCurrentTL}`}>{props.timeLine}</td>
+            <td className={`firstTrElement ${isCurrentTL}`}>{props.timeLine}</td>
             {
                 props.month.generalInfos.map((value, i) =>
                 <Record key={i}

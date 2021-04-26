@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import RecordRow from "./RecordRow";
 import './RecordTable.css'
 import Modal from "../modal/Modal";
@@ -15,24 +15,35 @@ export default function RecordTable(props) {
     let [isChartsModalOpen, setIsChartsModalOpen] = React.useState(false);
     let [day, setDay] = React.useState();
 
+    const tableRef = React.createRef();
+
+    useEffect(() => {
+        setTableScrollPosition();
+    }, []);
+
     return (
         <Collapsible trigger={props.month.diaryMonth.name} open={props.month.modalOpen} onTriggerOpening={() => {loadMonthRecords(props.year, props.month.diaryMonth.name, props.month.modalOpen)}}>
-            <table className="monthTable">
-                <thead>
-                <tr>
-                    <th className="recordTh" onClick={() => openCloseChartsModal()}/>
-                    {props.month.diaryMonth.generalInfos.map((value, i) =>
-                        <th key={i} className={`recordTh ${isCurrentDay(value.monthDay)}`} onClick={
-                            () => openCloseDayInfoModal(props.month.diaryMonth.name + ' | ' + value.weekDay + ' / ' + value.monthDay, value.monthDay)}>
-                            {value.monthDay}
-                            <br/>{value.weekDay}
-                        </th>)}
-                </tr>
-                </thead>
-                <tbody>
-                {props.timeLines.map((value, i) => <RecordRow key={i} timeLine={value} month={props.month.diaryMonth}/>)}
-                </tbody>
-            </table>
+            <div className="mainCollapseDiv">
+                <div className="secondMainCollapseDiv">
+                    <table className="monthTable" ref={tableRef}>
+                        <thead>
+                        <tr>
+                            <th className="recordTh firstTrElement firstThElement" onClick={() => openCloseChartsModal()}>
+                            </th>
+                            {props.month.diaryMonth.generalInfos.map((value, i) =>
+                                <th key={i} className={`recordTh ${isCurrentDay(value.monthDay)}`} onClick={
+                                    () => openCloseDayInfoModal(props.month.diaryMonth.name + ' | ' + value.weekDay + ' / ' + value.monthDay, value.monthDay)}>
+                                    {value.monthDay}
+                                    <br/>{value.weekDay}
+                                </th>)}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {props.timeLines.map((value, i) => <RecordRow key={i} timeLine={value} month={props.month.diaryMonth}/>)}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <Modal title={dayInfoModalTitle} isOpen={isDayInfoModalOpen} onClose={openCloseDayInfoModal}>
                 <DayInfoModal year={props.year} month={props.month.diaryMonth.name} day={day}/>
             </Modal>
@@ -41,6 +52,12 @@ export default function RecordTable(props) {
             </Modal>
         </Collapsible>
     )
+
+    function setTableScrollPosition() {
+        const element = tableRef.current;
+        const maxRefScrollLeft = element.scrollWidth - element.clientWidth;
+        element.scrollLeft = ((maxRefScrollLeft/props.month.diaryMonth.generalInfos.length) * new Date().getDate());
+    }
 
     function openCloseChartsModal() {
         setIsChartsModalOpen(!isChartsModalOpen);
