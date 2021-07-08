@@ -122,8 +122,8 @@ const RecordService = {
             });
     },
 
-    getMonthWeightChartData: function (weightRecordId) {
-        fetch(serverUrl + 'food/getMonthWeightChartData?weightRecordId=' + weightRecordId, {
+    getMonthWeightChartData: function (year, month) {
+        fetch(serverUrl + 'food/getMonthWeightChartData?year=' + year + '&month=' + month, {
             headers: authHeader()
         }).then(response => response.json())
             .then(data => {
