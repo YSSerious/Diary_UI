@@ -1,6 +1,14 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 export default function NewWeightRecordModal(props) {
+
+    useEffect(() => {
+        props.setRecordDto({
+            url: "",
+            record: {}
+        });
+    }, []);
+
     return (
         <div>
             <p>Weight Record(Volume In Kilograms)</p>

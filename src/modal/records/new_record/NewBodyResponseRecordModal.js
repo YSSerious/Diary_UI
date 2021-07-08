@@ -15,6 +15,10 @@ export default function NewBodyResponseRecordModal(props) {
     let [bodyResponseValues, setBodyResponseValues] = React.useState([]);
 
     useEffect(() => {
+        props.setRecordDto({
+            url: "",
+            record: {}
+        });
         setRecord(recordObject);
         RecordService.getBodyResponseValues(setBodyResponseValues);
     }, []);

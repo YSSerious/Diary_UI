@@ -3,6 +3,10 @@ import React, {useEffect} from "react";
 export default function NewGymRecordModal(props) {
 
     useEffect(() => {
+        props.setRecordDto({
+            url: "",
+            record: {}
+        });
         setRecord();
     }, []);
 

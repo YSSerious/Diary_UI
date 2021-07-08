@@ -8,6 +8,10 @@ export default function NewFoodRecordModal(props) {
     let [recordObject, setRecordObject] = React.useState({foodVolumes: []});
 
     useEffect(() => {
+        props.setRecordDto({
+            url: "",
+            record: {}
+        });
         RecordService.getFoodCatalog().then(
             data => setFoodCatalog(data)
         );

@@ -1,6 +1,13 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 export default function NewWaterRecordModal(props) {
+
+    useEffect(() => {
+        props.setRecordDto({
+            url: "",
+            record: {}
+        })
+    }, []);
 
     return (
         <div>

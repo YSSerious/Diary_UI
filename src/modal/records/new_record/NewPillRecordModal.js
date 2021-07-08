@@ -8,6 +8,10 @@ export default function NewPillRecordModal(props) {
     let [recordObject, setRecordObject] = React.useState({pillVolumes: []});
 
     useEffect(() => {
+        props.setRecordDto({
+            url: "",
+            record: {}
+        });
         RecordService.getPillCatalog()
             .then(data => setPillCatalog(data));
         setRecord(recordObject);

@@ -5,7 +5,7 @@ export default function Icon(props) {
     const icons = {
         food: <i className="bi-egg-fried fa-lg foodIconColor" title="Food Record"/>,
         water: <i className="bi-droplet-half fa-lg waterIconColor" title="Water Record"/>,
-        gym: <i className="bi-trophy fa-lg gymIconColor" title="Gym Record"/>,
+        gym: <i className="bi-trophy-fill fa-lg gymIconColor" title="Gym Record"/>,
         weight: <i className="bi-star-fill fa-lg weightIconColor" title={getITitle("Weight Record", props.volume)}/>,
         bodyResponse: <i className="bi-person-fill fa-lg brIconColor" title="Body Response Record"/>,
         foodHealthy: <i className={`bi-diamond-fill`} style={{color: getFoodHealthyColorClass(props.foodHealthy)}}
